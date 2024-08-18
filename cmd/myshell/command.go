@@ -72,6 +72,8 @@ func handleCD(path string) {
 	var newPath string
 	if path[0] == '/' {
 		newPath = path
+	} else if path[0] == '~' {
+		newPath = os.Getenv("HOME")
 	} else {
 		newPath = filepath.Join(_meta.dir, path)
 	}
