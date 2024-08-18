@@ -35,7 +35,7 @@ func handleEcho(str string) {
 func handleType(_type string) {
 	path, isPath := _meta.command[_type]
 	if isPath {
-		fmt.Fprintf(os.Stdout, "%s is %s\n", _type, path)
+		fmt.Fprintf(os.Stdout, "%s is %s/%s\n", _type, path, _type)
 		return
 	}
 
