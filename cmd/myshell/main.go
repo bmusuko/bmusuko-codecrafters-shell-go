@@ -53,7 +53,7 @@ func handleEcho(str string) {
 func handleType(_type string) {
 	switch _type {
 	case "exit", "echo", "type":
-		fmt.Fprintf(os.Stdout, "%s: is a shell builtin\n", _type)
+		fmt.Fprintf(os.Stdout, "%s is a shell builtin\n", _type)
 	default:
 		fmt.Fprintf(os.Stdout, "%s: not found\n", _type)
 	}
