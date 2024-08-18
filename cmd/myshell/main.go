@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	reloadMeta()
+	initMeta()
 
 	fmt.Fprint(os.Stdout, "$ ")
 

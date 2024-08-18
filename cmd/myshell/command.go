@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -23,6 +22,8 @@ func handleCommand(command string) {
 		handleType(strs[1])
 	case "pwd":
 		handlePWD()
+	case "cd":
+		handleCD(strs[1])
 	default:
 		reloadMeta()
 		path, isPath := _meta.command[strs[0]]
@@ -49,7 +50,7 @@ func handleEcho(str string) {
 
 func handleType(_type string) {
 	switch _type {
-	case "exit", "echo", "type", "pwd":
+	case "exit", "echo", "type", "pwd", "cd":
 		fmt.Fprintf(os.Stdout, "%s is a shell builtin\n", _type)
 	default:
 		path, isPath := _meta.command[_type]
@@ -62,6 +63,14 @@ func handleType(_type string) {
 }
 
 func handlePWD() {
-	path, _ := filepath.Abs(".")
+	path := _meta.dir
 	fmt.Fprintf(os.Stdout, "%s\n", path)
+}
+
+func handleCD(path string) {
+	_, err := os.Stat(path)
+	if err != nil {
+		fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", path)
+	}
+	_meta.dir = path
 }

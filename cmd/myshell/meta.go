@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -11,6 +12,14 @@ var _meta = meta{}
 type meta struct {
 	paths   []string
 	command map[string]string
+	dir     string
+}
+
+func initMeta() {
+	reloadMeta()
+
+	dir, _ := filepath.Abs(".")
+	_meta.dir = dir
 }
 
 func reloadMeta() {
