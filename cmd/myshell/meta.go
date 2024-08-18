@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"strings"
 )
@@ -27,7 +28,7 @@ func initMeta() {
 			if entry.IsDir() {
 				continue
 			}
-			command[entry.Name()] = path
+			command[entry.Name()] = fmt.Sprintf("%s/%s", path, entry.Name())
 		}
 	}
 	_meta.command = command

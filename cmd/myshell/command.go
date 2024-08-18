@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"strconv"
 	"strings"
 )
@@ -19,7 +20,16 @@ func handleCommand(command string) {
 	case "type":
 		handleType(strs[1])
 	default:
-		fmt.Fprintf(os.Stdout, "%s: command not found\n", command)
+		path, isPath := _meta.command[strs[0]]
+		if !isPath {
+			fmt.Fprintf(os.Stdout, "%s: command not found\n", command)
+			return
+		}
+		out, err := exec.Command(path, strs[1:]...).Output()
+		if err != nil {
+			return
+		}
+		fmt.Fprintf(os.Stdout, "%s", string(out))
 	}
 
 }
@@ -36,14 +46,12 @@ func handleType(_type string) {
 	switch _type {
 	case "exit", "echo", "type":
 		fmt.Fprintf(os.Stdout, "%s is a shell builtin\n", _type)
-		return
+	default:
+		path, isPath := _meta.command[_type]
+		if !isPath {
+			fmt.Fprintf(os.Stdout, "%s: not found\n", _type)
+			return
+		}
+		fmt.Fprintf(os.Stdout, "%s is %s\n", _type, path)
 	}
-
-	path, isPath := _meta.command[_type]
-	if isPath {
-		fmt.Fprintf(os.Stdout, "%s is %s/%s\n", _type, path, _type)
-		return
-	}
-
-	fmt.Fprintf(os.Stdout, "%s: not found\n", _type)
 }
