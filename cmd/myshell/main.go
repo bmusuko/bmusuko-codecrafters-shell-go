@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -17,6 +18,7 @@ func main() {
 		if err != nil {
 			os.Exit(-1)
 		}
+		command = strings.TrimSuffix(command, "\n")
 		handleCommand(command)
 	}
 }
