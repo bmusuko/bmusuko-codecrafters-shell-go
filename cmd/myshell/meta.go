@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"strings"
 )
@@ -20,6 +21,7 @@ func initMeta() {
 	for _, path := range paths {
 		entries, err := os.ReadDir(path)
 		if err != nil {
+			fmt.Printf("err: %+v", err)
 			os.Exit(-1)
 		}
 		for _, entry := range entries {
