@@ -73,7 +73,7 @@ func handleCD(path string) {
 	if path[0] == '/' {
 		newPath = path
 	} else {
-		newPath = filepath.Join(_meta.dir, newPath)
+		newPath = filepath.Join(_meta.dir, path)
 	}
 	_, err := os.Stat(newPath)
 	if err != nil {
