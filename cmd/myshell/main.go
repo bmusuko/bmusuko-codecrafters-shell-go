@@ -32,6 +32,8 @@ func handleCommand(command string) {
 	case "exit":
 		code, _ := strconv.Atoi(strs[1])
 		handleExit(code)
+	case "echo":
+		handleEcho(strings.Join(strs[1:], " "))
 	default:
 		fmt.Fprintf(os.Stdout, "%s: command not found\n", command)
 	}
@@ -40,4 +42,8 @@ func handleCommand(command string) {
 
 func handleExit(code int) {
 	os.Exit(code)
+}
+
+func handleEcho(str string) {
+	fmt.Fprintf(os.Stdout, "%s\n", str)
 }
