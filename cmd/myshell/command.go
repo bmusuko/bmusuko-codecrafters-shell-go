@@ -33,10 +33,10 @@ func handleEcho(str string) {
 }
 
 func handleType(_type string) {
-	switch _type {
-	case "exit", "echo", "type":
-		fmt.Fprintf(os.Stdout, "%s is a shell builtin\n", _type)
-	}
+	//switch _type {
+	//case "exit", "echo", "type":
+	//	fmt.Fprintf(os.Stdout, "%s is a shell builtin\n", _type)
+	//}
 
 	path, isPath := _meta.command[_type]
 	if isPath {
