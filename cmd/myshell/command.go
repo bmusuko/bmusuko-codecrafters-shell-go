@@ -23,6 +23,7 @@ func handleCommand(command string) {
 		path, isPath := _meta.command[strs[0]]
 		if !isPath {
 			fmt.Fprintf(os.Stdout, "%s: command not found\n", command)
+			fmt.Fprintf(os.Stdout, "%q", _meta.command)
 			return
 		}
 		out, err := exec.Command(path, strs[1:]...).Output()
