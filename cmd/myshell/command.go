@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -68,9 +69,16 @@ func handlePWD() {
 }
 
 func handleCD(path string) {
-	_, err := os.Stat(path)
+	var newPath string
+	if strings.HasPrefix(newPath, "/") {
+		newPath = path
+	} else {
+		newPath = filepath.Join(_meta.dir, newPath)
+	}
+	_, err := os.Stat(newPath)
 	if err != nil {
 		fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", path)
+		return
 	}
-	_meta.dir = path
+	_meta.dir = newPath
 }
