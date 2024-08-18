@@ -13,7 +13,7 @@ type meta struct {
 	command map[string]string
 }
 
-func initMeta() {
+func reloadMeta() {
 	paths := strings.Split(os.Getenv("PATH"), ":")
 	_meta.paths = paths
 	command := make(map[string]string)

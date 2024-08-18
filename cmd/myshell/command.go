@@ -18,8 +18,10 @@ func handleCommand(command string) {
 	case "echo":
 		handleEcho(strings.Join(strs[1:], " "))
 	case "type":
+		reloadMeta()
 		handleType(strs[1])
 	default:
+		reloadMeta()
 		path, isPath := _meta.command[strs[0]]
 		if !isPath {
 			fmt.Fprintf(os.Stdout, "%s: command not found\n", command)
