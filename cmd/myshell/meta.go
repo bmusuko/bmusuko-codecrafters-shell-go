@@ -1,9 +1,9 @@
 package main
 
 import (
-	"flag"
-	"fmt"
 	"strings"
+
+	"github.com/namsral/flag"
 )
 
 var _meta = meta{}
@@ -19,5 +19,4 @@ func initMeta() {
 
 	paths := strings.Split(path, ":")
 	_meta.paths = paths
-	fmt.Printf("%q", paths)
 }
