@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -20,6 +21,8 @@ func handleCommand(command string) {
 	case "type":
 		reloadMeta()
 		handleType(strs[1])
+	case "pwd":
+		handlePWD()
 	default:
 		reloadMeta()
 		path, isPath := _meta.command[strs[0]]
@@ -46,7 +49,7 @@ func handleEcho(str string) {
 
 func handleType(_type string) {
 	switch _type {
-	case "exit", "echo", "type":
+	case "exit", "echo", "type", "pwd":
 		fmt.Fprintf(os.Stdout, "%s is a shell builtin\n", _type)
 	default:
 		path, isPath := _meta.command[_type]
@@ -56,4 +59,9 @@ func handleType(_type string) {
 		}
 		fmt.Fprintf(os.Stdout, "%s is %s\n", _type, path)
 	}
+}
+
+func handlePWD() {
+	path, _ := filepath.Abs(".")
+	fmt.Fprintf(os.Stdout, "%s\n", path)
 }
